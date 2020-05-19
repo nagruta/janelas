@@ -1,0 +1,1 @@
+﻿./sub-establish-file-download "./dist/nupkg" $args[0] $args[1]
