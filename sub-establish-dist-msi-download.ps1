@@ -1,0 +1,1 @@
+﻿./sub-establish-file-download "./dist/msi" $args[0] $args[1]
