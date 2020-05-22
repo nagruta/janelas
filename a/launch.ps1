@@ -1,5 +1,6 @@
 ﻿# launch vagrant
+Push-Location
 $scriptdir = Split-Path -Path $MyInvocation.MyCommand.Definition
-cd $scriptdir
-./sub-establish-path-and-cd.ps1 run/vagrant
+cd "$scriptdir/../env"
 vagrant up
+Pop-Location
