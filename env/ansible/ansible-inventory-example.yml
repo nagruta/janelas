@@ -1,0 +1,29 @@
+---
+all:
+  hosts:
+    host_example_01:
+      ansible_host: 192.168.9.1
+    host_example_02:
+      ansible_host: 192.168.9.2
+    host_example_03:
+      ansible_host: 192.168.9.3
+  children:
+    group_win:
+      vars:
+        ansible_connection: winrm
+        ansible_winrm_server_cert_validation: ignore
+        ansible_winrm_transport: basic
+        ansible_user: ansible
+        ansible_password: ChangeThisPassword!!!
+      children:
+        group_win_ueds:
+          hosts:
+            host_example_01:
+            host_example_02:
+        group_win_user_naluar:
+          hosts:
+            host_example_01:
+        group_win_user_other:
+          hosts:
+            host_example_02:
+...
