@@ -4,7 +4,8 @@ if (-not (Test-Path $installdir)) {
 }
 #$defaultbox = hashicorp/bionic64
 #$defaultbox = alisio/awx --box-version 1.0.0
-$defaultbox = "darkwizard242/devopsubuntu1804"
+#$defaultbox = "darkwizard242/devopsubuntu1804"
+$defaultbox = "darkwizard242/ansibleubuntu1804"
 if (-not $(vagrant box list).Contains($defaultbox)) {
   vagrant box add $defaultbox
 }
