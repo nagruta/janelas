@@ -3,19 +3,22 @@
   connection: winrm
   gather_facts: no
   tasks:
-    - name: Visual Studio 2019 Community
-      # https://chocolatey.org/packages/visualstudio2019community
-      win_chocolatey:
-        name: visualstudio2019community
-    - name: Visual Studio 2019 Game development with C++, including UE installer
-      # https://chocolatey.org/packages/visualstudio2019-workload-nativegame
-      win_chocolatey:
-        name: visualstudio2019-workload-nativegame
-        package_params: "--add Component.Unreal"
-        # !!! NOTE: ^ changes to package_params will not be applied without reinstalling:
-        #state: reinstalled
+    - name: "Visual Studio for UE"
+      import_tasks: atasks-win-msvs-for-ue.yml
     ##- name: Epic Games Launcher
       # https://chocolatey.org/packages/epicgameslauncher
       ##win_chocolatey:
         ##name: epicgameslauncher
+    - name: "Copy UE to remote"
+      vars:
+          parentdir: "Epic Games"
+          directory: "UE_4.24"
+          source: "/mnt/opt/{{ parentdir }}/{{ directory }}"
+          zipfile: "{{ directory }}.zip"
+          destparent: "C:\\opt\\{{ parentdir }}\\"
+          destzipfile: "{{ destparent }}{{ zipfile }}"
+          target: "{{ destparent }}{{ directory }}"
+      include_tasks: atasks-win-establish-directory.yml
+      ## this will force over existing directory:
+      ##include_tasks: atasks-win-zip-and-copy-directory.yml
 ...

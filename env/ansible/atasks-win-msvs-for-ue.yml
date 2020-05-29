@@ -1,0 +1,14 @@
+---
+- name: "Visual Studio 2019 Community"
+  # https://chocolatey.org/packages/visualstudio2019community
+  win_chocolatey:
+    name: visualstudio2019community
+
+- name: "Visual Studio 2019 Game development with C++, including UE installer"
+  # https://chocolatey.org/packages/visualstudio2019-workload-nativegame
+  win_chocolatey:
+    name: visualstudio2019-workload-nativegame
+    package_params: "--add Component.Unreal"
+    # !!! NOTE: ^ changes to package_params will not be applied without reinstalling:
+    #state: reinstalled
+...
