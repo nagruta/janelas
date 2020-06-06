@@ -1,0 +1,16 @@
+---
+- set_fact:
+      scphost: "{{ hostvars[groups['group_scps'][0]].ansible_host }}"
+- set_fact:
+      scpkeydir: .ssh
+- set_fact:
+      scpkeyfile: "{{ hostvars[groups['group_scps'][0]].sshkeyfile }}"
+- set_fact:
+      scpkeyspec: "{{ scpkeydir }}/{{ scpkeyfile }}"
+- set_fact:
+      scpuser: "{{ hostvars[groups['group_scps'][0]].sshuser }}"
+- set_fact:
+      scpserver: "{{ scpuser }}@{{ scphost }}"
+- set_fact:
+      scppath: "{{ scpserver }}:w/luar/files/"
+...
