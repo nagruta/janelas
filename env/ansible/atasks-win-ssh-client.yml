@@ -1,0 +1,7 @@
+---
+- name: "OpenSSH tools"
+  # https://chocolatey.org/packages/openssh
+  win_chocolatey:
+    name: openssh
+    package_params: "--pre"
+...
