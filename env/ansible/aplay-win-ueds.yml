@@ -9,13 +9,19 @@
       # https://chocolatey.org/packages/epicgameslauncher
       ##win_chocolatey:
         ##name: epicgameslauncher
-    - name: "Copy UE to remote"
+    - name: "SSH client [chocolatey] (because we need SCP)"
+      include_tasks: atasks-win-ssh-client.yml
+    - name: "SCP facts"
+      include_tasks: atasks-scp-facts.yml
+    - name: "Unreal Engine 4.24"
       vars:
-          parentdir: "Epic Games"
+          dirparent: "Epic Games"
           directory: "UE_4.24"
-          source: "/mnt/opt/{{ parentdir }}/{{ directory }}"
+          ## NO LONGER USING WIN LOCAL DIREcTORY BEcAUSE ITS WAY TOO SLOW
+          #source: "/mnt/opt/{{ dirparent }}/{{ directory }}"
           zipfile: "{{ directory }}.zip"
-          destparent: "C:\\opt\\{{ parentdir }}\\"
+          srczipfile: "{{ scppath }}{{ directory }}.zip"
+          destparent: "C:/opt/{{ dirparent }}/"
           destzipfile: "{{ destparent }}{{ zipfile }}"
           target: "{{ destparent }}{{ directory }}"
       include_tasks: atasks-win-establish-directory.yml
