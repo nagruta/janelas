@@ -3,7 +3,12 @@
   win_chocolatey:
     name: msvisualcplusplus2013-redist
 
-- name: "Visual C++ 2015-2019 Redistributable (required by UE 4.24 for VCRUNTIME140_1.DLL)"
+- name: "Visual C++ 2017 Redistributable (required by UE 4.24 for VCRUNTIME140_1.DLL)"
   win_chocolatey:
-    name: vcredist140
+    name: vcredist2017 # TODO: chocolatey actually installs Visual C++ 2015-2019, same as below
+    #packageparams: "???" # desire to only install x64 and not x86 which also gets installed by default
+
+#- name: "Visual C++ 2015-2019 Redistributable (required by UE 4.24 for VCRUNTIME140_1.DLL)"
+#  win_chocolatey:
+#    name: vcredist140
 ...
