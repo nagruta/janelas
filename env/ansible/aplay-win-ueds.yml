@@ -3,25 +3,36 @@
   connection: winrm
   gather_facts: no
   tasks:
-    - import_tasks: atasks-win-update-disable.yml
-    - name: "Visual Studio for UE"
-      import_tasks: atasks-win-vs-for-ue.yml
-    ##- name: Epic Games Launcher
-      # https://chocolatey.org/packages/epicgameslauncher
-      ##win_chocolatey:
-        ##name: epicgameslauncher
-    ## SSH and SCP already present on cloud Win Server 2019
-    ##- name: "SSH client [chocolatey] (because we need SCP)"
-    ##  include_tasks: atasks-win-ssh-client.yml
-    - name: "SCP facts"
-      include_tasks: atasks-scp-facts.yml
+    - include_tasks: atasks-win-update-disable.yml
+
     - name: "DirectX 9 (required by UE 4.24)"
       win_chocolatey:
         name: directx
-      ignore_errors: yes # FOR NOW UNTIL WE RESOLVE IT
+      ignore_errors: yes # TODO: ### says it fails on Win 10 Pro even though log says it succeeded
+
+    - name: "Visual C++ Redistributables required by UE"
+      include_tasks: atasks-win-vcredist-for-ue.yml
+
+    ## TODO: Visual Studio is not yet required to package BP-only projects
+    ##- name: "Visual Studio for UE"
+    ##  include_tasks: atasks-win-vs-for-ue.yml
+
+    ## TODO: we don't want the Launcher yet
+    ##- name: Epic Games Launcher
+    ##   https://chocolatey.org/packages/epicgameslauncher
+    ##  win_chocolatey:
+    ##    name: epicgameslauncher
+
+    ## SSH and SCP already present on cloud Win Server 2019
+    ##- name: "SSH client [chocolatey] (because we need SCP)"
+    ##  include_tasks: atasks-win-ssh-client.yml
+
+    - name: "SCP facts"
+      include_tasks: atasks-scp-facts.yml
+
     - name: "Unreal Engine 4.24"
       vars:
-        dirparent: "Epic Games"
+        dirparent: "Epic_Games" # !!! replaced space with _ in 'Epic Games'
         directory: "UE_4.24"
         ## NO LONGER USING WIN LOCAL DIREcTORY BEcAUSE ITS WAY TOO SLOW
         #source: "/mnt/opt/{{ dirparent }}/{{ directory }}"
@@ -50,6 +61,7 @@
         ##    remote_src: yes
         ##    src: "{{ targetbintp }}/CEF3/Win64/"
         ##    dest: "{{ targetbin64 }}"
+
         - name: Unreal Editor 4.24 shortcut
           win_shortcut:
             description: configured by Luar devops
@@ -57,4 +69,9 @@
             src: "{{ targetexe64 }}"
             icon: "{{ targetexe64 }},0"
             dest: "C:/Users/Public/Desktop/Unreal Editor 4.24.lnk"
+
+        ## TODO: doesn't fully install from ansible because GUI asks to download .NET fraamework
+        ##- name: Unreal Engine 4.24 Prerequisites
+        ##  win_shell: "{{ target }}/Engine/Extras/Redist/en-us/UE4PrereqSetup_x64.exe /quiet"
+        ##    # note: argument /? will show the .exe parameters
 ...
