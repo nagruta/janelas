@@ -1,22 +1,21 @@
 ---
-- name: "Visual Studio 2019 Community"
+- name: "Visual Studio 2017 Community"
   # https://chocolatey.org/packages/visualstudio2019community
   win_chocolatey:
-    name: visualstudio2019community
-    state: present
-  register: vs2019c
+    name: visualstudio2017community
+  register: vs2017c
 
-- name: "Visual Studio 2019 Game development with C++, including UE installer"
+- name: "Visual Studio 2017 Game development with C++"
   # https://chocolatey.org/packages/visualstudio2019-workload-nativegame
   win_chocolatey:
-    name: visualstudio2019-workload-nativegame
-    state: present
-    package_params: "--add Component.Unreal"
+    name: visualstudio2017-workload-nativegame
+    # !!! NOTE this will install the Epic Games Launcher, which we don't want
+    #package_params: "--add Component.Unreal"
     # !!! NOTE: ^ changes to package_params will not be applied without reinstalling:
     #state: reinstalled
   register: vsforue
 
 - name: "reboot if VS for UE changed, because Windows"
   win_reboot:
-  when: vs2019c.changed or vsforue.changed
+  when: vs2017c.changed or vsforue.changed
 ...
