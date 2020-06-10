@@ -2,7 +2,7 @@
 configurator for Windows installations
 
 # The target machine must be prepared for Ansible
-* create user "ansible" with password matching the playbooks
+* create user "ansible" with password matching your inventory
 * add user "ansible" to group "Administrators"
 * copy-and-paste the following into PowerShell as Administrator:
 ~~~
