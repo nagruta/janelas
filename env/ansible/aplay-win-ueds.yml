@@ -3,28 +3,58 @@
   connection: winrm
   gather_facts: no
   tasks:
+    - import_tasks: atasks-win-update-disable.yml
     - name: "Visual Studio for UE"
-      import_tasks: atasks-win-msvs-for-ue.yml
+      import_tasks: atasks-win-vs-for-ue.yml
     ##- name: Epic Games Launcher
       # https://chocolatey.org/packages/epicgameslauncher
       ##win_chocolatey:
         ##name: epicgameslauncher
-    - name: "SSH client [chocolatey] (because we need SCP)"
-      include_tasks: atasks-win-ssh-client.yml
+    ## SSH and SCP already present on cloud Win Server 2019
+    ##- name: "SSH client [chocolatey] (because we need SCP)"
+    ##  include_tasks: atasks-win-ssh-client.yml
     - name: "SCP facts"
       include_tasks: atasks-scp-facts.yml
+    - name: "DirectX 9 (required by UE 4.24)"
+      win_chocolatey:
+        name: directx
+      ignore_errors: yes # FOR NOW UNTIL WE RESOLVE IT
     - name: "Unreal Engine 4.24"
       vars:
-          dirparent: "Epic Games"
-          directory: "UE_4.24"
-          ## NO LONGER USING WIN LOCAL DIREcTORY BEcAUSE ITS WAY TOO SLOW
-          #source: "/mnt/opt/{{ dirparent }}/{{ directory }}"
-          zipfile: "{{ directory }}.zip"
-          srczipfile: "{{ scppath }}{{ directory }}.zip"
-          destparent: "C:/opt/{{ dirparent }}/"
-          destzipfile: "{{ destparent }}{{ zipfile }}"
-          target: "{{ destparent }}{{ directory }}"
-      include_tasks: atasks-win-establish-directory.yml
-      ## this will force over existing directory:
-      ##include_tasks: atasks-win-zip-and-copy-directory.yml
+        dirparent: "Epic Games"
+        directory: "UE_4.24"
+        ## NO LONGER USING WIN LOCAL DIREcTORY BEcAUSE ITS WAY TOO SLOW
+        #source: "/mnt/opt/{{ dirparent }}/{{ directory }}"
+        zipfile: "{{ directory }}.zip"
+        srczipfile: "{{ scppath }}{{ zipfile }}"
+        destparent: "C:/opt/{{ dirparent }}/"
+        destzipfile: "{{ destparent }}{{ zipfile }}"
+        target: "{{ destparent }}{{ directory }}"
+        targetbin: "{{ target }}/Engine/Binaries"
+        targetbintp: "{{ targetbin }}/ThirdParty"
+        targetbin64: "{{ targetbin }}/Win64"
+        targetexe64: "{{ targetbin64 }}/UE4Editor.exe"
+      block:
+        - include_tasks: atasks-win-establish-directory.yml
+          ## this will force over existing directory:
+          ##include_tasks: atasks-win-zip-and-copy-directory.yml
+        ## TODO: @@@ PREPARE ZIP WITH THIS IN ADVANCE
+        ##- name: "copy required old DLLs to UE4 bin, set 1"
+        ##  win_copy:
+        ##    remote_src: yes
+        ##    src: "{{ targetbintp }}/AppLocalDependencies/Win64/DirectX/"
+        ##    dest: "{{ targetbin64 }}"
+        ## TODO: ### UE4 Editor CRASHES WITH THIS:
+        ##- name: "copy required old DLLs to UE4 bin, set 2"
+        ##  win_copy:
+        ##    remote_src: yes
+        ##    src: "{{ targetbintp }}/CEF3/Win64/"
+        ##    dest: "{{ targetbin64 }}"
+        - name: Unreal Editor 4.24 shortcut
+          win_shortcut:
+            description: configured by Luar devops
+            directory: "{{ targetbin64 }}"
+            src: "{{ targetexe64 }}"
+            icon: "{{ targetexe64 }},0"
+            dest: "C:/Users/Public/Desktop/Unreal Editor 4.24.lnk"
 ...
