@@ -2,16 +2,22 @@
 - name: "establish remote parent directory {{ destparent }}"
   win_file: path={{ destparent }} state=directory
 
-- name: "checking existence of remote {{ target }}"
+- name: "check existence of remote {{ target }}"
   win_stat: path={{ target }} get_checksum=False get_md5=False
   register: win_stat_target
 
-- name: "SCP from {{ srczipfile }} to {{ target }}"
-  include_tasks: atasks-win-scp-zip-to-directory.yml
-  when: win_stat_target.stat.exists == False
+- name: "check existence of remote {{ destzipfile }}"
+  win_stat: path={{ destzipfile }} get_checksum=False get_md5=False
+  register: win_stat_zipfile
 
-## @@@ WinRM IS TOO SLOW FOR BIG FILEs
-#- name: "zip and copy {{ source }} to {{ target }}"
-#  include_tasks: atasks-win-zip-and-copy-directory.yml
-#  when: win_stat_target.stat.exists == False
+- name: "SCP from {{ srczipfile }} to {{ destparent }}"
+  vars:
+    scpsrc: "{{ srczipfile }}"
+    scpdest: "{{ destparent }}"
+  include_tasks: atasks-win-scp-remote.yml
+  when: win_stat_target.stat.exists == False and win_stat_zipfile.stat.exists == False
+
+- name: "remote unzip into {{ target }}"
+  win_unzip: src={{ destzipfile }} dest={{ destparent }}
+  when: win_stat_target.stat.exists == False
 ...
