@@ -1,0 +1,9 @@
+---
+- name: "Visual C++ 2013 Redistributable (required by UE 4.24 or crash at some % in ModuleManager.cpp)"
+  win_chocolatey:
+    name: msvisualcplusplus2013-redist
+
+- name: "Visual C++ 2015-2019 Redistributable (required by UE 4.24 for VCRUNTIME140_1.DLL)"
+  win_chocolatey:
+    name: vcredist140
+...
