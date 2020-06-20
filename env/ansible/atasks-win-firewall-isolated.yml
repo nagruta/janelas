@@ -1,53 +1,6 @@
 ---
-- name: "Windows Defender Firewall ON for all profiles"
-  win_firewall:
-    state: enabled
-    profiles:
-    - Domain
-    - Private
-    - Public
-
-- name: "firewall rule IN for near-total isolation, lower TCP"
-  win_firewall_rule:
-    name: BLOCK ALL TCP BELOW WinRM 5986
-    group: naluar
-    state: present
-    enabled: yes
-    action: block
-    direction: in
-    protocol: TCP
-    localport: 0-5985
-
-- name: "firewall rule IN for near-total isolation, upper TCP"
-  win_firewall_rule:
-    name: BLOCK ALL TCP ABOVE WinRM 5986
-    group: naluar
-    state: present
-    enabled: yes
-    action: block
-    direction: in
-    protocol: TCP
-    localport: 5987-65535
-
-- name: "firewall rule IN for near-total isolation, all UDP"
-  win_firewall_rule:
-    name: BLOCK ALL UDP IN
-    group: naluar
-    state: present
-    enabled: yes
-    action: block
-    direction: in
-    protocol: UDP
-    localport: any
-
-- name: "firewall rule OUT for total isolation"
-  win_firewall_rule:
-    name: BLOCK EVERYTHING OUT
-    group: naluar
-    state: present
-    enabled: yes
-    action: block
-    direction: out
-    localport: any
-    protocol: any
+- include_tasks: atasks-win-firewall-on.yml
+- include_tasks: atasks-win-firewall-block-out.yml
+- include_tasks: atasks-win-firewall-block-in-udp.yml
+- include_tasks: atasks-win-firewall-in-only-rd-rm.yml
 ...

@@ -1,0 +1,12 @@
+---
+- name: "firewall rule to block all UDP in"
+  win_firewall_rule:
+    name: BLOCK ALL UDP IN
+    group: naluar
+    state: present
+    enabled: yes
+    action: block
+    direction: in
+    protocol: UDP
+    localport: any
+...

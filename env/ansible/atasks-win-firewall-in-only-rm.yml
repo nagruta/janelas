@@ -1,0 +1,23 @@
+---
+- name: "firewall rule IN for only WinRM, lower TCP"
+  win_firewall_rule:
+    name: BLOCK ALL TCP BELOW WinRM 5986
+    group: naluar
+    state: present
+    enabled: yes
+    action: block
+    direction: in
+    protocol: TCP
+    localport: 0-5985
+
+- name: "firewall rule IN for only WinRM, upper TCP"
+  win_firewall_rule:
+    name: BLOCK ALL TCP ABOVE WinRM 5986
+    group: naluar
+    state: present
+    enabled: yes
+    action: block
+    direction: in
+    protocol: TCP
+    localport: 5987-65535
+...

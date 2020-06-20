@@ -1,0 +1,12 @@
+---
+- name: "firewall rule to block everything out"
+  win_firewall_rule:
+    name: BLOCK EVERYTHING OUT
+    group: naluar
+    state: present
+    enabled: yes
+    action: block
+    direction: out
+    localport: any
+    protocol: any
+...
