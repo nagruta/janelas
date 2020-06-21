@@ -3,12 +3,16 @@
   connection: winrm
   gather_facts: no
   tasks:
+    ## TODO: only works on Windows Server 2019 and then is not enough to enable (as the GUI)
+    ##- include_tasks: atasks-win-remote-desktop.yml
     - include_tasks: atasks-win-update-disable.yml
+    - include_tasks: atasks-win-firewall-isolated.yml
 
-    - name: "DirectX 9 (required by UE 4.24)"
-      win_chocolatey:
-        name: directx
-      ignore_errors: yes # TODO: ### says it fails on Win 10 Pro even though log says it succeeded
+    ## TODO: fails on Win 10 Pro, and cloud Win Server 2019 doesn't need it
+    ##- name: "DirectX 9 (required by UE 4.24)"
+    ##  win_chocolatey:
+    ##    name: directx
+    ##  ignore_errors: yes # TODO: ### says it fails on Win 10 Pro even though log says it succeeded
 
     - name: "Visual C++ Redistributables required by UE"
       include_tasks: atasks-win-vcredist-for-ue.yml
