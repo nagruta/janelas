@@ -1,0 +1,26 @@
+---
+  #vars:
+    #user_name: "{{ hostvars['user_name'].ansible_host }}"
+- name: user "{{ janelas_user_name }}"
+  win_user:
+    name: "{{ janelas_user_name }}"
+    groups:
+      - Remote Desktop Users
+      - Users
+    #password: "{{ janelas_user_password | password_hash('sha512') }}"
+    password: "{{ janelas_user_password }}"
+    password_expired: yes
+    password_never_expires: yes
+    update_password: on_create
+
+- name: user profile "{{ janelas_user_name }}"
+  win_user_profile:
+    username: "{{ janelas_user_name }}"
+
+### TODO: DOES NOTHING
+###- name: user right for Remote Desktop"
+###  win_user_right:
+###    name: SeRemoteInteractiveLogonRight
+###    users:
+###    - "{{ janelas_user_name }}"
+...
