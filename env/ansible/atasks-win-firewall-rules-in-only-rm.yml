@@ -1,7 +1,7 @@
 ---
 - name: "firewall rule IN for only WinRM, lower TCP"
   win_firewall_rule:
-    name: BLOCK ALL TCP BELOW WinRM 5986
+    name: BLOCK IN ALL TCP BELOW WinRM 5986
     group: naluar
     state: present
     enabled: yes
@@ -12,7 +12,7 @@
 
 - name: "firewall rule IN for only WinRM, upper TCP"
   win_firewall_rule:
-    name: BLOCK ALL TCP ABOVE WinRM 5986
+    name: BLOCK IN ALL TCP BEYOND WinRM 5986
     group: naluar
     state: present
     enabled: yes

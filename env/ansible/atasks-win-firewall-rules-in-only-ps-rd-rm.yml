@@ -1,7 +1,7 @@
 ---
 - name: "firewall rule IN for only PS, Win RD, and RM, lowest TCP"
   win_firewall_rule:
-    name: BLOCK ALL TCP BELOW WinRD 3389
+    name: BLOCK IN ALL TCP BELOW WinRD 3389
     group: naluar
     state: present
     enabled: yes
@@ -12,7 +12,7 @@
 
 - name: "firewall rule IN for only PS, Win RD and RM, lower TCP"
   win_firewall_rule:
-    name: BLOCK ALL TCP BETWEEN WinRD 3389 AND PS 5900
+    name: BLOCK IN ALL TCP BETWEEN WinRD 3389 AND PS 5900
     group: naluar
     state: present
     enabled: yes
@@ -23,7 +23,7 @@
 
 - name: "firewall rule IN for only PS, Win RD and RM, middle TCP"
   win_firewall_rule:
-    name: BLOCK ALL TCP BETWEEN PS 5900 AND WinRM 5986
+    name: BLOCK IN ALL TCP BETWEEN PS 5900 AND WinRM 5986
     group: naluar
     state: present
     enabled: yes
@@ -34,7 +34,7 @@
 
 - name: "firewall rule IN for only PS, Win RD and RM, upper TCP"
   win_firewall_rule:
-    name: BLOCK ALL TCP BETWEEN WinRM 5986 AND PS 9980
+    name: BLOCK IN ALL TCP BETWEEN WinRM 5986 AND PS 9980
     group: naluar
     state: present
     enabled: yes
@@ -45,7 +45,7 @@
 
 - name: "firewall rule IN for only PS, Win RD and RM, upmost TCP"
   win_firewall_rule:
-    name: BLOCK ALL TCP ABOVE PS 9982
+    name: BLOCK IN ALL TCP BEYOND PS 9982
     group: naluar
     state: present
     enabled: yes

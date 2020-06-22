@@ -1,12 +1,12 @@
 ---
-- name: "firewall rule to block everything out"
+- name: "firewall rule to block OUT all UDP"
   win_firewall_rule:
-    name: BLOCK EVERYTHING OUT
+    name: BLOCK OUT ALL UDP
     group: naluar
     state: present
     enabled: yes
     action: block
     direction: out
+    protocol: UDP
     localport: any
-    protocol: any
 ...

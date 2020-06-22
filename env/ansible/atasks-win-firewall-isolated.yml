@@ -1,6 +1,0 @@
----
-- include_tasks: atasks-win-firewall-on.yml
-- include_tasks: atasks-win-firewall-block-out.yml
-- include_tasks: atasks-win-firewall-block-in-udp.yml
-- include_tasks: atasks-win-firewall-in-only-rd-rm.yml
-...

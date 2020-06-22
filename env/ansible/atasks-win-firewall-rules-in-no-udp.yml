@@ -1,7 +1,7 @@
 ---
-- name: "firewall rule to block all UDP in"
+- name: "firewall rule IN to block all UDP"
   win_firewall_rule:
-    name: BLOCK ALL UDP IN
+    name: BLOCK IN ALL UDP
     group: naluar
     state: present
     enabled: yes

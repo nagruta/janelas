@@ -1,0 +1,7 @@
+---
+- include_tasks: atasks-win-firewall-off.yml
+- include_tasks: atasks-win-firewall-rules-in-no-udp.yml
+- include_tasks: atasks-win-firewall-rules-in-only-rd-rm.yml
+- include_tasks: atasks-win-firewall-rules-out-no-udp.yml
+- include_tasks: atasks-win-firewall-rules-out-only-ssh.yml
+...

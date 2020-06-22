@@ -1,5 +1,5 @@
 ---
-- name: "Windows Defender Firewall ON for all profiles"
+- name: "Windows Defender Firewall OFF for all profiles"
   win_firewall:
     state: disabled
     profiles:
