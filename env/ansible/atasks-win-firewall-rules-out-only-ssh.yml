@@ -1,0 +1,23 @@
+---
+- name: "firewall rule OUT for only SSH, lower TCP"
+  win_firewall_rule:
+    name: BLOCK OUT ALL TCP BELOW SSH 22
+    group: naluar
+    state: present
+    enabled: yes
+    action: block
+    direction: out
+    protocol: TCP
+    localport: 0-21
+
+- name: "firewall rule OUT for only SSH, upper TCP"
+  win_firewall_rule:
+    name: BLOCK OUT ALL TCP BEYOND SSH 22
+    group: naluar
+    state: present
+    enabled: yes
+    action: block
+    direction: out
+    protocol: TCP
+    localport: 23-65535
+...
