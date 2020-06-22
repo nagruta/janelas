@@ -1,0 +1,45 @@
+---
+- name: "ENABLE Remote Desktop by registry edit"
+  #win_shell: Invoke-Command -ScriptBlock {Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0}
+  win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server
+    name: fDenyTSConnections
+    data: 0
+    type: dword
+
+### TODO: NOT REQUIRED FOR Windows Server 2019
+##- name: "ENABLE Remote Desktop, registry edit 2 of 2"
+##  win_regedit:
+##    path: HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server
+##    name: TSUserEnabled
+##    data: 1
+##    type: dword
+
+### TODO: ALREADY DEFAULTS TO 0 ON Windows Server 2019
+##- name: "ENABLE Remote Desktop, registry edit 3 of 3"
+##  win_regedit:
+##    path: HKLM:\SOFTWARE\Microsoft\Windows\NT\CurrentVersionl\Windlogon
+##    name: WinStationsDisabled
+##    data: 0
+##    type: string
+
+- name: "ENABLE Remote Desktop firewall rule predefined in Windows"
+  win_firewall_rule:
+    name: Remote Desktop - User Mode (TCP-In)
+    group: Remote Desktop
+    enabled: yes
+
+### TODO: UDP IS NOT REQUIRED BY MAY IMPROVE PERFORMANCE (UNTESTED)
+##- name: "ENABLE firewall rule predefined in Windows, 2 of 3"
+##  win_firewall_rule:
+##    name: Remote Desktop - User Mode (UDP-In)
+##    group: Remote Desktop
+##    enabled: yes
+
+### TODO: DOES NOT SEEM TO BE REQUIRED ON Windows Server 2019
+##- name: "ENABLE firewall rule predefined in Windows, 3 of 3"
+##  win_firewall_rule:
+##    name: Remote Desktop - Shadow (TCP-In)
+##    group: Remote Desktop
+##    enabled: yes
+...
