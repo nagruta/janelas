@@ -8,5 +8,5 @@
     action: block
     direction: out
     protocol: UDP
-    localport: any
+    remoteport: any
 ...

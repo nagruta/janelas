@@ -8,7 +8,7 @@
     action: block
     direction: out
     protocol: TCP
-    localport: 0-21
+    remoteport: 0-21
 
 - name: "firewall rule OUT for only SSH, upper TCP"
   win_firewall_rule:
@@ -19,5 +19,5 @@
     action: block
     direction: out
     protocol: TCP
-    localport: 23-65535
+    remoteport: 23-65535
 ...
