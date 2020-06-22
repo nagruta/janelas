@@ -1,0 +1,9 @@
+---
+- name: "Windows Defender Firewall ON for all profiles"
+  win_firewall:
+    state: disabled
+    profiles:
+    - Domain
+    - Private
+    - Public
+...
