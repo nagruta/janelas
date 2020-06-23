@@ -42,6 +42,16 @@
     ##    name: directx
     ##  #ignore_errors: yes # TODO: ### says it fails on Win 10 Pro even though log says it succeeded
 
+    ## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolately
+    - include_tasks: atasks-win-firewall-off.yml
+    - name: Node JS TLS v10.16.0 (required by SWS)
+      # https://chocolatey.org/packages/nodejs-lts/10.16.0
+      win_chocolatey:
+        name: nodejs-lts
+        version: 10.16.0
+    ## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolately
+    - include_tasks: atasks-win-firewall-on.yml
+
     - name: "SCP facts"
       include_tasks: atasks-scp-facts.yml
 
