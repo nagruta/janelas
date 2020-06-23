@@ -1,0 +1,19 @@
+---
+- name: "establish parent directory {{ destparent }}"
+  win_file: path={{ destparent }} state=directory
+
+- name: "optional force replacement of {{ target }}"
+  win_file: path={{ target }} state=absent
+  when: replacetarget is defined and replacetarget == True
+
+- name: "check existence of {{ target }}"
+  win_stat: path={{ target }} get_checksum=False get_md5=False
+  register: win_stat_target
+
+- name: "SCP from {{ srcfile }} to {{ destparent }}"
+  vars:
+    scpsrc: "{{ srcfile }}"
+    scpdest: "{{ destparent }}"
+  include_tasks: atasks-win-scp-remote.yml
+  when: win_stat_target.stat.exists == False
+...
