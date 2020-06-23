@@ -1,12 +1,20 @@
 ---
-- name: "establish remote parent directory {{ destparent }}"
+- name: "establish parent directory {{ destparent }}"
   win_file: path={{ destparent }} state=directory
 
-- name: "check existence of remote {{ target }}"
+- name: "optional force replacement of {{ target }}"
+  win_file: path={{ target }} state=absent
+  when: (replacetarget is defined and replacetarget == True) or (replacezipfile is defined and replacezipfile == True)
+
+- name: "check existence of {{ target }}"
   win_stat: path={{ target }} get_checksum=False get_md5=False
   register: win_stat_target
 
-- name: "check existence of remote {{ destzipfile }}"
+- name: "optional force replacement of {{ destzipfile }}"
+  win_file: path={{ destzipfile }} state=absent
+  when: replacezipfile is defined and replacezipfile == True
+
+- name: "check existence of {{ destzipfile }}"
   win_stat: path={{ destzipfile }} get_checksum=False get_md5=False
   register: win_stat_zipfile
 
@@ -17,7 +25,7 @@
   include_tasks: atasks-win-scp-remote.yml
   when: win_stat_target.stat.exists == False and win_stat_zipfile.stat.exists == False
 
-- name: "remote unzip into {{ target }}"
+- name: "unzip into {{ target }}"
   win_unzip: src={{ destzipfile }} dest={{ destparent }}
   when: win_stat_target.stat.exists == False
 ...
