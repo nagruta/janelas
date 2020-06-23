@@ -10,6 +10,11 @@
     - include_tasks: atasks-win-remote-desktop.yml
     - include_tasks: atasks-win-janelas-user.yml
 
+    - name: ERADICATE Microsoft Edge desktop shortcut
+      win_shortcut:
+        dest: "C:/Users/{{ janelas_user_name }}/Desktop/Microsoft Edge.lnk"
+        state: absent
+
     ## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolately
     - include_tasks: atasks-win-firewall-off.yml
     - name: "Visual C++ Redistributables required by UE"
