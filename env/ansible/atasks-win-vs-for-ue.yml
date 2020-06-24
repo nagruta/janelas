@@ -15,6 +15,11 @@
     #state: reinstalled
   register: vsforue
 
+- name: ".NET Framework 4.7.2 Developer Pack"
+  # https://chocolatey.org/packages/dotnet4.7.2
+  win_chocolatey:
+    name: netfx-4.7.2-devpack
+
 - name: "reboot if VS for UE changed, because Windows"
   win_reboot:
   when: vs2017c.changed or vsforue.changed
