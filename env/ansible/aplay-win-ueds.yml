@@ -15,16 +15,16 @@
         dest: "C:/Users/{{ janelas_user_name }}/Desktop/Microsoft Edge.lnk"
         state: absent
 
-    ## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolately
+    ## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolatey
     - include_tasks: atasks-win-firewall-off.yml
     - name: "Visual C++ Redistributables required by UE"
       include_tasks: atasks-win-vcredist-for-ue.yml
-    ## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolately
-    - include_tasks: atasks-win-firewall-on.yml
 
-    ## TODO: Visual Studio is not yet required to package BP-only projects
-    ##- name: "Visual Studio for UE"
-    ##  include_tasks: atasks-win-vs-for-ue.yml
+    - name: "Visual Studio for UE"
+      include_tasks: atasks-win-vs-for-ue.yml
+
+    ## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolatey
+    - include_tasks: atasks-win-firewall-on.yml
 
     ## TODO: we don't want the Launcher yet
     ##- name: Epic Games Launcher
