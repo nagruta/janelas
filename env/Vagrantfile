@@ -45,6 +45,9 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "/opt", "/mnt/opt"
+  config.vm.synced_folder "..", "/mnt/top"
+  config.vm.synced_folder "../../..", "/mnt/super"
+    ## optional super level directory above us (great-grandparent)
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -68,4 +71,8 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get install python-pip --yes
+    pip install pywinrm
+  SHELL
 end
