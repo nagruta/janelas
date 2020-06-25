@@ -1,0 +1,16 @@
+---
+- name: "check Windows Feature .NET Framework 3.5"
+  win_shell: Get-WindowsOptionalFeature -Online | Where-Object -FilterScript {$_.featurename -Like "NetFx3"}
+  register: checkwinfeaturedotnet35
+
+- name: "ENABLE Windows Feature .NET Framework 3.5 (required by DX9 and thusly UE 4.24)"
+  #win_shell: Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" -Source "SourcePath"
+  ## TODO: THIS FAILS WITH ERROR "Access denied" BUT IT WORKS MANUALLY
+  block:
+    ## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolatey
+    - include_tasks: atasks-win-firewall-off.yml
+    - win_shell: Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3"
+    - include_tasks: atasks-win-firewall-on.yml
+    ## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolatey
+  when: checkwinfeaturedotnet35.stdout is search("Disabled")
+...
