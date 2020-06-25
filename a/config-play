@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ $# -lt 1 ]
+then
+    echo usage: "$0 '<playbook (without .yml)>'"
+    exit 1
+fi
+PATH_CONF_ANSIBLE=conf/ansible
+FILE_INVENTORY=ansible-inventory.yml
+PATH_SUPER_CONF_ANSIBLE=/mnt/super/$PATH_CONF_ANSIBLE
+FILE_SUPER_INVENTORY=$PATH_SUPER_CONF_ANSIBLE/$FILE_INVENTORY
+if [ -f $FILE_SUPER_INVENTORY ]
+then
+  FILE_INVENTORY=$FILE_SUPER_INVENTORY
+fi
+cd $PATH_CONF_ANSIBLE
+ansible-playbook -i $FILE_INVENTORY -vv $1.yml
