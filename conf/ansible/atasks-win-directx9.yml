@@ -1,0 +1,29 @@
+---
+## TODO: CHOCOLATEY FAILS ON WIN 10 PRO
+##- name: "DirectX 9 (required by UE 4.24)"
+##  win_chocolatey:
+##    name: directx
+
+## TODO: THIS WILL FAIL ON Corsair One (SEE BELOW)
+- name: "DirectX 9 from MS redist (because chocolatey fails)"
+  vars:
+    dirparent: ms
+    stem: directx_Jun2010_redist
+    file: "{{ stem }}.exe"
+    srcfile: "{{ scppath }}{{ file }}"
+    destparent: "C:/soft/gratis/{{ dirparent }}/"
+    target: "{{ destparent }}{{ file }}"
+    replacetarget: no
+  block:
+    - name: "copy DirectX 9 installer from SCP"
+      include_tasks: atasks-win-establish-file.yml
+    ## TODO: directx_Jun2010_redist is ONLY extraction, not intaller
+    ## TODO: "DIRECTX.exe /silent" is the actuall installer
+    ## TODO: THIS win_package STALLS AND NEVER RETURNS
+    ## TODO: AND MANUAL INSTALLATION ALSO FAILS
+    - name: "establish DirectX 9"
+      win_package:
+        product_id: 'ANSIBLE PLACEHOLDER FOR DIRECTX 9'
+        path: "{{ target }}"
+        arguments: "/Q /T:{{ destparent }}{{ stem }}"
+...
