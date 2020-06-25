@@ -1,7 +1,13 @@
 ---
+## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolately
+- include_tasks: atasks-win-firewall-off.yml
+
 - name: "OpenSSH tools"
   # https://chocolatey.org/packages/openssh
   win_chocolatey:
     name: openssh
     package_params: "--pre"
+
+- include_tasks: atasks-win-firewall-on.yml
+## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolately
 ...
