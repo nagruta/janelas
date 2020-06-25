@@ -1,0 +1,13 @@
+---
+## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolately
+- include_tasks: atasks-win-firewall-off.yml
+
+- name: Node JS TLS v10.16.0
+  # https://chocolatey.org/packages/nodejs-lts/10.16.0
+  win_chocolatey:
+    name: nodejs-lts
+    version: 10.16.0
+
+- include_tasks: atasks-win-firewall-on.yml
+## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolately
+...
