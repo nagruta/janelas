@@ -1,0 +1,6 @@
+---
+- name: ERADICATE Microsoft Edge desktop shortcut
+  win_shortcut:
+    dest: "C:/Users/{{ janelas_user_name }}/Desktop/Microsoft Edge.lnk"
+    state: absent
+...
