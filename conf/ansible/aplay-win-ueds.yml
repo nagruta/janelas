@@ -6,8 +6,8 @@
     uever: 4.24
   tasks:
     - include_tasks: atasks-win-firewall-config-isolated.yml
-    - include_tasks: atasks-win-update-disable.yml
     - include_tasks: atasks-win-remote-desktop.yml
+    - include_tasks: atasks-win-update-disable.yml
     - include_tasks: atasks-win-janelas-user.yml
     - include_tasks: atasks-win-desktop-clean.yml
     - include_tasks: atasks-win-feature-netfx3.yml
