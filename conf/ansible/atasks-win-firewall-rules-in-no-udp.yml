@@ -2,7 +2,7 @@
 - name: "firewall rule IN to block all UDP"
   win_firewall_rule:
     name: BLOCK IN ALL UDP
-    group: naluar
+    group: __janelas__
     state: present
     enabled: yes
     action: block

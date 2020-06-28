@@ -1,30 +1,30 @@
 ---
 - name: "firewall rule IN for only PS, Win RD, and RM, lowest TCP"
   win_firewall_rule:
-    name: BLOCK IN ALL TCP BELOW WinRD 3389
-    group: naluar
+    name: BLOCK IN ALL TCP BELOW WinRD 33
+    group: __janelas__
     state: present
     enabled: yes
     action: block
     direction: in
     protocol: TCP
-    localport: 0-3388
+    localport: 0-32
 
 - name: "firewall rule IN for only PS, Win RD and RM, lower TCP"
   win_firewall_rule:
-    name: BLOCK IN ALL TCP BETWEEN WinRD 3389 AND PS 5900
-    group: naluar
+    name: BLOCK IN ALL TCP BETWEEN WinRD 33 AND PS 5900
+    group: __janelas__
     state: present
     enabled: yes
     action: block
     direction: in
     protocol: TCP
-    localport: 3390-5899
+    localport: 34-5899
 
 - name: "firewall rule IN for only PS, Win RD and RM, middle TCP"
   win_firewall_rule:
     name: BLOCK IN ALL TCP BETWEEN PS 5900 AND WinRM 5986
-    group: naluar
+    group: __janelas__
     state: present
     enabled: yes
     action: block
@@ -35,7 +35,7 @@
 - name: "firewall rule IN for only PS, Win RD and RM, upper TCP"
   win_firewall_rule:
     name: BLOCK IN ALL TCP BETWEEN WinRM 5986 AND PS 9980
-    group: naluar
+    group: __janelas__
     state: present
     enabled: yes
     action: block
@@ -46,7 +46,7 @@
 - name: "firewall rule IN for only PS, Win RD and RM, upmost TCP"
   win_firewall_rule:
     name: BLOCK IN ALL TCP BEYOND PS 9982
-    group: naluar
+    group: __janelas__
     state: present
     enabled: yes
     action: block

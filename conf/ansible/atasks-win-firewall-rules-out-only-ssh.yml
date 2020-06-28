@@ -2,7 +2,7 @@
 - name: "firewall rule OUT for only SSH, lower TCP"
   win_firewall_rule:
     name: BLOCK OUT ALL TCP BELOW SSH 22
-    group: naluar
+    group: __janelas__
     state: present
     enabled: yes
     action: block
@@ -13,7 +13,7 @@
 - name: "firewall rule OUT for only SSH, upper TCP"
   win_firewall_rule:
     name: BLOCK OUT ALL TCP BEYOND SSH 22
-    group: naluar
+    group: __janelas__
     state: present
     enabled: yes
     action: block
