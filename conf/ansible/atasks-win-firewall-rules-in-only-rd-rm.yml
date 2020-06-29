@@ -4,7 +4,7 @@
     name: BLOCK IN ALL TCP BELOW WinRD 33
     group: __janelas__
     state: present
-    enabled: yes
+    enabled: "{{ janelas_firewall_rules_enabled }}"
     action: block
     direction: in
     protocol: TCP
@@ -15,7 +15,7 @@
     name: BLOCK IN ALL TCP BETWEEN WinRD 33 AND WinRM 5986
     group: __janelas__
     state: present
-    enabled: yes
+    enabled: "{{ janelas_firewall_rules_enabled }}"
     action: block
     direction: in
     protocol: TCP
@@ -26,7 +26,7 @@
     name: BLOCK IN ALL TCP BEYOND WinRM 5986
     group: __janelas__
     state: present
-    enabled: yes
+    enabled: "{{ janelas_firewall_rules_enabled }}"
     action: block
     direction: in
     protocol: TCP

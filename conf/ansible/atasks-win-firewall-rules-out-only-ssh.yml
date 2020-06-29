@@ -4,7 +4,7 @@
     name: BLOCK OUT ALL TCP BELOW SSH 22
     group: __janelas__
     state: present
-    enabled: yes
+    enabled: "{{ janelas_firewall_rules_enabled }}"
     action: block
     direction: out
     protocol: TCP
@@ -15,7 +15,7 @@
     name: BLOCK OUT ALL TCP BEYOND SSH 22
     group: __janelas__
     state: present
-    enabled: yes
+    enabled: "{{ janelas_firewall_rules_enabled }}"
     action: block
     direction: out
     protocol: TCP
