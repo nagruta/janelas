@@ -49,6 +49,7 @@
     protocol: TCP
     localport: "{{ janelas_port_winrdp }}"
     program: "C:\\Windows\\system32\\svchost.exe"
+    service: termservice
   when: janelas_port_winrdp is defined
 
 - name: "DISABLE/ENABLE Remote Desktop firewall rule predefined by Windows"
