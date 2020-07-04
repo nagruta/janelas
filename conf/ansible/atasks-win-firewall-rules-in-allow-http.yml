@@ -1,0 +1,12 @@
+---
+- name: "Windows Defender Firewall rule to allow TCP inbound to HTTP port 80"
+  win_firewall_rule:
+    name: janelas ALLOW TCP IN from HTTP port 80
+    group: __janelas__
+    state: present
+    enabled: yes
+    action: allow
+    direction: in
+    protocol: TCP
+    localport: 80
+...

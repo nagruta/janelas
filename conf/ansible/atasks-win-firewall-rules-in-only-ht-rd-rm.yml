@@ -1,0 +1,45 @@
+---
+- name: "firewall rule IN for only HTTP, Win RD, and RM, lowest TCP"
+  win_firewall_rule:
+    name: janelas BLOCK IN ALL TCP BELOW WinRD 33
+    group: __janelas__
+    state: present
+    enabled: "{{ janelas_firewall_rules_enabled }}"
+    action: block
+    direction: in
+    protocol: TCP
+    localport: 0-32
+
+- name: "firewall rule IN for only HTTP, Win RD and RM, lower TCP"
+  win_firewall_rule:
+    name: janelas BLOCK IN ALL TCP BETWEEN WinRD 33 AND HTTP 80
+    group: __janelas__
+    state: present
+    enabled: "{{ janelas_firewall_rules_enabled }}"
+    action: block
+    direction: in
+    protocol: TCP
+    localport: 34-79
+
+- name: "firewall rule IN for only HTTP, Win RD and RM, middle TCP"
+  win_firewall_rule:
+    name: janelas BLOCK IN ALL TCP BETWEEN HTTP 80 AND WinRM 5986
+    group: __janelas__
+    state: present
+    enabled: "{{ janelas_firewall_rules_enabled }}"
+    action: block
+    direction: in
+    protocol: TCP
+    localport: 81-5985
+
+- name: "firewall rule IN for only HTTP, Win RD and RM, upmost TCP"
+  win_firewall_rule:
+    name: janelas BLOCK IN ALL TCP BEYOND WinRM 5986
+    group: __janelas__
+    state: present
+    enabled: "{{ janelas_firewall_rules_enabled }}"
+    action: block
+    direction: in
+    protocol: TCP
+    localport: 5987-65535
+...
