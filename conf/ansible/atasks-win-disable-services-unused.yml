@@ -1,0 +1,29 @@
+---
+- name: DISABLE service Connected User Experiences and Telemetry
+  win_service:
+    name: DiagTrack
+    start_mode: disabled # win default Automatic
+    state: stopped
+    force_dependent_services: yes
+
+- name: DISABLE service Distributed Link Tracking Client
+  win_service:
+    name: TrkWks
+    start_mode: disabled # win default Automatic
+    state: stopped
+    force_dependent_services: yes
+
+- name: DISABLE service Program Compatibility Assitant Service
+  win_service:
+    name: PcaSvc
+    start_mode: disabled # win default Manual
+    state: stopped
+    force_dependent_services: yes
+
+- name: DISABLE service TCP/IP NetBIOS Helper
+  win_service:
+    name: lmhosts
+    start_mode: disabled # win default Manual
+    state: stopped
+    force_dependent_services: yes
+...

@@ -1,9 +1,0 @@
----
-- name: "DISABLE Windows Update service"
-  # from https://www.youtube.com/watch?v=ZI20Y10OKd0
-  win_service:
-    name: wuauserv
-    start_mode: disabled
-    state: stopped
-    # force_dependent_services: true
-...

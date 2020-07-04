@@ -1,0 +1,8 @@
+---
+- name: DISABLE service Server
+  win_service:
+    name: Server
+    start_mode: disabled # win default Automatic
+    state: stopped
+    force_dependent_services: yes
+...

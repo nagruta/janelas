@@ -1,0 +1,8 @@
+---
+- name: DISABLE service Distributed Transaction Coordinator
+  win_service:
+    name: MSDTC
+    start_mode: disabled # win default Automatic (Delayed Start)
+    state: stopped
+    force_dependent_services: yes
+...

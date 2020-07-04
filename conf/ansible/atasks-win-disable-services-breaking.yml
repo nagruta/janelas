@@ -1,0 +1,33 @@
+---
+- name: DISABLE service Application Information
+  win_service:
+    name: Appinfo
+    start_mode: disabled # win default Manual
+    #state: stopped
+      # ^ !!! error popup when trying to stop by hand
+    force_dependent_services: yes
+
+- name: DISABLE service Touch Keyboard and Handwriting Panel Service
+  win_service:
+    name: TabletInputService
+    start_mode: disabled # win default Manual
+    #state: stopped
+      # ^ !!! GUI button [Stop] is disabled
+    force_dependent_services: yes
+
+- name: DISABLE service Windows Defender Antivirus Network Inspection Service
+  win_service:
+    name: WdNisSvc
+    start_mode: disabled # win default Manual
+    state: stopped
+    force_dependent_services: yes
+  ignore_errors: yes # TODO: #### "Access denied"
+
+- name: DISABLE service Windows Defender Antivirus Service
+  win_service:
+    name: WinDefend
+    start_mode: disabled # win default Automatic
+    state: stopped
+    force_dependent_services: yes
+  ignore_errors: yes # TODO: #### "Access denied"
+...
