@@ -40,7 +40,7 @@
 
 - name: "CREATE rule for different port of Remote Desktop firewall rule predefined in Windows"
   win_firewall_rule:
-    name: janelas RDP TCP IN
+    name: janelas ALLOW TCP IN from RDP port
     group: __janelas__
     state: present
     enabled: yes
