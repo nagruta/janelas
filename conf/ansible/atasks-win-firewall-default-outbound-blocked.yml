@@ -1,0 +1,5 @@
+---
+- name: "Windows Defender Firewall set default outbound to blocked for all profiles, and log"
+#  win_shell: Set-NetFirewallProfile -All -DefaultOutboundAction Block -LogAllowed -LogBlocked -LogFileName %SystemRoot%/System32/LogFiles/Firewall/pfirewall.log
+  win_shell: Set-NetFirewallProfile -All -DefaultOutboundAction Block
+...
