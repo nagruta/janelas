@@ -1,0 +1,23 @@
+---
+- name: "Windows Defender Firewall rule to allow UDP outbound to STUN/TURN port 3478"
+  win_firewall_rule:
+    name: janelas ALLOW UDP OUT to STUN/TURN port 3478
+    group: __janelas__
+    state: present
+    enabled: yes
+    action: allow
+    direction: out
+    protocol: UDP
+    remoteport: 3478
+
+- name: "Windows Defender Firewall rule to allow UDP outbound to WebRTC ports 50000-65535"
+  win_firewall_rule:
+    name: janelas ALLOW UDP OUT to WebRTC ports 50000-65535
+    group: __janelas__
+    state: present
+    enabled: yes
+    action: allow
+    direction: out
+    protocol: UDP
+    remoteport: 50000-65535
+...
