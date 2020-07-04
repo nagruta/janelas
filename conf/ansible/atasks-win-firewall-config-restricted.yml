@@ -1,0 +1,7 @@
+---
+- include_tasks: atasks-win-firewall-on.yml
+- include_tasks: atasks-win-firewall-default-outbound-blocked.yml
+- include_tasks: atasks-win-firewall-rules-in-only-ht-rd-rm.yml
+- include_tasks: atasks-win-firewall-rules-in-allow-http.yml
+- include_tasks: atasks-win-firewall-rules-out-allow-webrtc.yml
+...
