@@ -5,7 +5,8 @@
   vars:
     uever: 4.24
   tasks:
-    - include_tasks: atasks-win-firewall-config-restricted.yml
+    - include_tasks: atasks-win-firewall-off.yml
+    - include_tasks: atasks-win-simplewall.yml
     - include_tasks: atasks-win-disable-services.yml
     - include_tasks: atasks-win-remote-desktop.yml
     - include_tasks: atasks-win-janelas-user.yml
