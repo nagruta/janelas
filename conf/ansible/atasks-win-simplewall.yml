@@ -1,0 +1,33 @@
+---
+- name: simplewall
+  vars:
+      directory: C:\ProgramData\chocolatey\lib\simplewall.portable\tools\simplewall\64\
+      program: simplewall
+      version: 3.1.2
+  block:
+    - name: '{{ program }} {{ version }} [chocolatey]'
+      win_chocolatey:
+        name: '{{ program }}.portable'
+        version: '{{ version }}'
+
+    - name: 'find {{ program }} process'
+      win_shell: Get-Process | Where-Object -FilterScript {$_.ProcessName -Like "{{ program }}"}
+      register: foundprocess
+
+    - name: 'kill {{ program }} (necessary for the following ENABLE)'
+      win_shell: 'Stop-Process -Force -Name {{ program }}'
+      when: foundprocess.stdout is search("simplewall")
+
+    - name: 'copy {{ program }} configuration'
+      vars:
+        file: '{{ program }}.ini'
+      win_copy: src='files/{{ file }}' dest='{{ directory }}{{ file }}'
+
+    - name: 'copy {{ program }} rules'
+      vars:
+        file: profile.xml
+      win_copy: src='files/{{ file }}' dest='{{ directory }}{{ file }}'
+
+    - name: 'ENABLE {{ program }} rules (no-op if {{ program }} already running)'
+      win_command: '{{ directory }}{{ program }}.exe /install /silent'
+...
