@@ -1,0 +1,2 @@
+#!/bin/sh
+git config diff.localizablestrings.textconv "iconv -f utf-16 -t utf-8"
