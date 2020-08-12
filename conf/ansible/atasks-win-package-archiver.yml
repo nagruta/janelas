@@ -1,0 +1,6 @@
+---
+- name: archiver
+  win_chocolatey:
+    name: archiver
+    version: 3.1.0
+...
