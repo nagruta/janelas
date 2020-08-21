@@ -1,0 +1,3 @@
+---
+- include_tasks: tasks-win-janelas-user.yml
+- include_tasks: tasks-win-desktop-clean.yml

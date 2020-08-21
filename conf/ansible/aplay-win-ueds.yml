@@ -7,9 +7,8 @@
   roles:
     - winbase
     - rdp
+    - januser
   tasks:
-    - include_tasks: atasks-win-janelas-user.yml
-    - include_tasks: atasks-win-desktop-clean.yml
     - include_tasks: atasks-win-feature-netfx3.yml
     - include_tasks: atasks-win-vcredist-for-ue.yml
     - include_tasks: atasks-win-vs-for-ue.yml
