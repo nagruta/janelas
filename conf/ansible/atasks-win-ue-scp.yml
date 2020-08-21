@@ -1,7 +1,4 @@
 ---
-- name: "SCP facts"
-  include_tasks: atasks-scp-facts.yml
-
 - name: "Unreal Engine {{ uever }}"
   vars:
     dirparent: "Epic_Games" # !!! replaced space with _ in 'Epic Games'
@@ -18,7 +15,9 @@
     replacetarget: no
     replacezipfile: no
   block:
-    - include_tasks: atasks-win-establish-directory.yml
+    - include_role:
+        name: filecopy
+        tasks_from: atasks-win-establish-directory.yml
 
     ## TODO: ### FAILS WITH RC 1603, PROBABLY NEEDS NET FRAMEWORK 4
     - name: Unreal Engine {{ uever }} Prerequisites installation

@@ -1,0 +1,8 @@
+---
+scphost: "{{ hostvars[groups['group_scps'][0]].ansible_host }}"
+scpkeydir: .ssh
+scpkeyfile: "{{ hostvars[groups['group_scps'][0]].sshkeyfile }}"
+scpkeyspec: "{{ scpkeydir }}/{{ scpkeyfile }}"
+scpuser: "{{ hostvars[groups['group_scps'][0]].sshuser }}"
+scpserver: "{{ scpuser }}@{{ scphost }}"
+scppath: "{{ scpserver }}:w/luar/files/"

@@ -15,8 +15,10 @@
     target: "{{ destparent }}{{ file }}"
     replacetarget: no
   block:
-    - name: "copy DirectX 9 installer from SCP"
-      include_tasks: atasks-win-establish-file.yml
+    - include_role:
+        name: filecopy
+        tasks_from: atasks-win-establish-file.yml
+
     ## TODO: directx_Jun2010_redist is ONLY extraction, not intaller
     ## TODO: "DIRECTX.exe /silent" is the actuall installer
     ## TODO: THIS win_package STALLS AND NEVER RETURNS
