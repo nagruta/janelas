@@ -1,0 +1,5 @@
+---
+- name: Epic Games Launcher
+  # https://chocolatey.org/packages/epicgameslauncher
+  win_chocolatey:
+    name: epicgameslauncher
