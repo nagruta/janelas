@@ -1,12 +1,18 @@
 ---
-  #vars:
-    #user_name: "{{ hostvars['user_name'].ansible_host }}"
+- set_fact:
+    janelas_user_groups:
+      - Users
+
+- set_fact:
+    janelas_user_groups: "{{ janelas_user_groups + [item] }}"
+  with_items:
+    - Remote Desktop Users
+  when: janelas_user_remotable is defined and janelas_user_remotable == True
+
 - name: user "{{ janelas_user_name }}"
   win_user:
     name: "{{ janelas_user_name }}"
-    groups:
-      - Remote Desktop Users
-      - Users
+    groups: "{{ janelas_user_groups }}"
     #password: "{{ janelas_user_password | password_hash('sha512') }}"
     password: "{{ janelas_user_password }}"
     password_expired: yes
@@ -23,4 +29,4 @@
 ###    name: SeRemoteInteractiveLogonRight
 ###    users:
 ###    - "{{ janelas_user_name }}"
-...
+###  when: janelas_user_remotable is defined and janelas_user_remotable == True
