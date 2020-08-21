@@ -1,0 +1,12 @@
+---
+- win_lineinfile:
+    path: "{{ janelas_simplewall_path_rules }}"
+    regex: "{{ janelas_simplewall_rule_regex }}"
+    state: absent
+# TODO: THIS PREVENT CHANGING THE FILE, BUT RESULTS IN DUPLICATES BELOW
+#  when: janelas_simplewall_rule_when is defined and janelas_simplewall_rule_when == False
+- win_lineinfile:
+    path: "{{ janelas_simplewall_path_rules }}"
+    insertbefore: "</rules_custom>"
+    line: "{{ janelas_simplewall_rule_line }}"
+  when: janelas_simplewall_rule_when is not defined or janelas_simplewall_rule_when == True
