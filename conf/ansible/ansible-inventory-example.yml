@@ -1,6 +1,8 @@
 ---
 all:
   hosts:
+    host_local_vagrant:
+      ansible_host: 10.0.2.2
     host_example_01:
       ansible_host: 192.168.9.1
     host_example_02:
@@ -12,10 +14,13 @@ all:
       vars:
         ansible_connection: winrm
         ansible_winrm_server_cert_validation: ignore
-        ansible_winrm_transport: basic
-        ansible_user: ansible
+        ansible_winrm_transport: ntlm
+        ansible_user: jansible
         ansible_password: ChangeThisPassword!!!
       children:
+        group_win_dws:
+          hosts:
+            host_local_vagrant:
         group_win_ueds:
           hosts:
             host_example_01:
