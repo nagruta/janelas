@@ -1,7 +1,0 @@
----
-#- include_tasks: atasks-win-disable-services-breaking.yml
-- include_tasks: atasks-win-disable-services-iffy.yml
-- include_tasks: atasks-win-disable-services-safe.yml
-- include_tasks: atasks-win-disable-services-significant.yml
-- include_tasks: atasks-win-disable-services-unused.yml
-...

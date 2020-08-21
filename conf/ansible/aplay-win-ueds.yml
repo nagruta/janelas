@@ -4,12 +4,10 @@
   gather_facts: no
   vars:
     uever: 4.24
+  roles:
+    - winbase
   tasks:
-    - include_tasks: atasks-win-firewall-off.yml
-    - include_tasks: atasks-win-simplewall.yml
-    - include_tasks: atasks-win-disable-services.yml
     - include_tasks: atasks-win-remote-desktop.yml
-    - include_tasks: atasks-win-package-archiver.yml
     - include_tasks: atasks-win-janelas-user.yml
     - include_tasks: atasks-win-desktop-clean.yml
     - include_tasks: atasks-win-feature-netfx3.yml

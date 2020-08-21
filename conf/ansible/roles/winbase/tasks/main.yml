@@ -1,0 +1,5 @@
+---
+- include_tasks: tasks-win-firewall-off.yml
+- include_tasks: tasks-win-simplewall.yml
+- include_tasks: tasks-win-disable-services.yml
+- include_tasks: tasks-win-package-archiver.yml
