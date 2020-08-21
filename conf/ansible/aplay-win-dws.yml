@@ -1,0 +1,14 @@
+---
+- hosts: group_win_dws
+  connection: winrm
+  gather_facts: no
+  vars:
+    janelas_firewall_rule_rdp: False
+    janelas_firewall_rule_http: False
+    #janelas_firewall_rule_winrm: False
+    #janelas_firewall_rule_ssh: False
+    #janelas_firewall_rule_stun: False
+    #janelas_firewall_rule_webrtc: False
+  roles:
+    - winbase
+    - januser
