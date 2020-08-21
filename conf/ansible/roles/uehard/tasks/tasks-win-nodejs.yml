@@ -1,0 +1,6 @@
+---
+- name: Node JS TLS v10.16.0
+  # https://chocolatey.org/packages/nodejs-lts/10.16.0
+  win_chocolatey:
+    name: nodejs-lts
+    version: 10.16.0

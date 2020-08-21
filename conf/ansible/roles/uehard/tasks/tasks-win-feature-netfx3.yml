@@ -7,10 +7,5 @@
   #win_shell: Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" -Source "SourcePath"
   ## TODO: THIS FAILS WITH ERROR "Access denied" BUT IT WORKS MANUALLY
   block:
-    ## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolatey
-    - include_tasks: atasks-win-firewall-off.yml
     - win_shell: Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3"
-    - include_tasks: atasks-win-firewall-on.yml
-    ## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolatey
   when: checkwinfeaturedotnet35.stdout is search("Disabled")
-...

@@ -1,7 +1,4 @@
 ---
-## TODO: !!! BEGIN REQUIRED INTERNET ACCESS FOR Chocolatey
-- include_tasks: atasks-win-firewall-off.yml
-
 - name: "Visual Studio 2017 Community"
   # https://chocolatey.org/packages/visualstudio2019community
   win_chocolatey:
@@ -23,10 +20,6 @@
   win_chocolatey:
     name: netfx-4.7.2-devpack
 
-- include_tasks: atasks-win-firewall-on.yml
-## TODO: !!! END REQUIRED INTERNET ACCESS FOR Chocolatey
-
 - name: "reboot if VS for UE changed, because Windows"
   win_reboot:
   when: vs2017c.changed or vsforue.changed
-...
