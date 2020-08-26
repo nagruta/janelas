@@ -3,4 +3,4 @@
   win_chocolatey:
     name: archiver
     version: 3.1.0
-...
+    state: present

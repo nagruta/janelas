@@ -1,0 +1,6 @@
+---
+- name: FreeCommanderXE
+  win_chocolatey:
+    name: freecommander-xe.install
+    #version: 2020.810.1
+    state: absent

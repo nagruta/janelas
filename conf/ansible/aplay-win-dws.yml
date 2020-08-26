@@ -11,4 +11,6 @@
     #janelas_firewall_rule_webrtc: False
   roles:
     - winbase
+    - fileman
     - januser
+...

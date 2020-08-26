@@ -1,0 +1,6 @@
+---
+- name: Double Commander
+  win_chocolatey:
+    name: doublecmd
+    #version: 0.9.9
+    state: absent

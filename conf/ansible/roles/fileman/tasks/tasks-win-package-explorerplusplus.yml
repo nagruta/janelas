@@ -1,0 +1,6 @@
+---
+- name: Explorer++
+  win_chocolatey:
+    name: explorerplusplus
+    #version: 1.3.5
+    state: absent
