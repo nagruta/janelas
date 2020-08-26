@@ -1,73 +1,65 @@
 ---
-- name: simplewall
+- name: '{{ program }} {{ version }} [chocolatey]'
+  win_chocolatey:
+    name: '{{ program }}.portable'
+    version: '{{ version }}'
+
+- include_tasks: tasks-win-simplewall-kill.yml
+
+- name: 'copy {{ program }} configuration'
   vars:
-      directory: C:\ProgramData\chocolatey\lib\simplewall.portable\tools\simplewall\64\
-      file_rules: profile.xml
-      janelas_simplewall_path_rules: '{{ directory }}{{ file_rules }}'
-      program: simplewall
-      version: 3.1.2
-  block:
-    - name: '{{ program }} {{ version }} [chocolatey]'
-      win_chocolatey:
-        name: '{{ program }}.portable'
-        version: '{{ version }}'
+    file: '{{ program }}.ini'
+  win_copy: src='files/{{ file }}' dest='{{ directory }}{{ file }}' force=no
 
-    - include_tasks: tasks-win-simplewall-kill.yml
+- name: 'copy {{ program }} rules'
+  win_copy: src='files/profile-no-rules.xml' dest='{{ janelas_simplewall_path_rules }}' force=no
 
-    - name: 'copy {{ program }} configuration'
-      vars:
-        file: '{{ program }}.ini'
-      win_copy: src='files/{{ file }}' dest='{{ directory }}{{ file }}' force=no
+- name: 'simplewall app restriction allowing chocolatey'
+  vars:
+    janelas_simplewall_restrict_app_regex: 'path="C:\\programdata\\chocolatey\\choco.exe"'
+    janelas_simplewall_restrict_app_line: '    <item path="C:\programdata\chocolatey\choco.exe" timestamp="1598453231" is_enabled="true" />'
+  include_tasks: tasks-win-simplewall-restrict-app.yml
 
-    - name: 'copy {{ program }} rules'
-      win_copy: src='files/profile-no-rules.xml' dest='{{ janelas_simplewall_path_rules }}' force=no
+- name: 'simplewall rule to allow/deny IN TCP RDP'
+  vars:
+    janelas_simplewall_rule_regex: 'rule_local="33" dir="1" protocol="6"'
+    janelas_simplewall_rule_line: '    <item name="janelas ALLOW IN TCP 33 RDP [all]" rule_local="33" dir="1" protocol="6" is_enabled="true" />'
+    janelas_simplewall_rule_when: "{{ janelas_firewall_rule_rdp | default(True) }}"
+  include_tasks: tasks-win-simplewall-rule.yml
 
-    - name: 'simplewall app restriction allowing chocolatey'
-      vars:
-        janelas_simplewall_restrict_app_regex: 'path="C:\\programdata\\chocolatey\\choco.exe"'
-        janelas_simplewall_restrict_app_line: '    <item path="C:\programdata\chocolatey\choco.exe" timestamp="1598453231" is_enabled="true" />'
-      include_tasks: tasks-win-simplewall-restrict-app.yml
+- name: 'simplewall rule to allow/deny IN TCP HTTP'
+  vars:
+    janelas_simplewall_rule_regex: 'rule_local="80" dir="1" protocol="6"'
+    janelas_simplewall_rule_line: '    <item name="janelas ALLOW IN TCP 80 HTTP [all]" rule_local="80" dir="1" protocol="6" is_enabled="true" />'
+    janelas_simplewall_rule_when: "{{ janelas_firewall_rule_http | default(True) }}"
+  include_tasks: tasks-win-simplewall-rule.yml
 
-    - name: 'simplewall rule to allow/deny IN TCP RDP'
-      vars:
-        janelas_simplewall_rule_regex: 'rule_local="33" dir="1" protocol="6"'
-        janelas_simplewall_rule_line: '    <item name="janelas ALLOW IN TCP 33 RDP [all]" rule_local="33" dir="1" protocol="6" is_enabled="true" />'
-        janelas_simplewall_rule_when: "{{ janelas_firewall_rule_rdp | default(True) }}"
-      include_tasks: tasks-win-simplewall-rule.yml
+- name: 'simplewall rule to allow/deny IN TCP Win RM'
+  vars:
+    janelas_simplewall_rule_regex: 'rule_local="5986" dir="1" protocol="6"'
+    janelas_simplewall_rule_line: '    <item name="janelas ALLOW IN TCP 5986 RM [all]" rule_local="5986" dir="1" protocol="6" is_enabled="true" />'
+    janelas_simplewall_rule_when: "{{ janelas_firewall_rule_winrm | default(True) }}"
+  include_tasks: tasks-win-simplewall-rule.yml
 
-    - name: 'simplewall rule to allow/deny IN TCP HTTP'
-      vars:
-        janelas_simplewall_rule_regex: 'rule_local="80" dir="1" protocol="6"'
-        janelas_simplewall_rule_line: '    <item name="janelas ALLOW IN TCP 80 HTTP [all]" rule_local="80" dir="1" protocol="6" is_enabled="true" />'
-        janelas_simplewall_rule_when: "{{ janelas_firewall_rule_http | default(True) }}"
-      include_tasks: tasks-win-simplewall-rule.yml
+- name: 'simplewall rule to allow/deny OUT TCP SSH'
+  vars:
+    janelas_simplewall_rule_regex: 'rule="22" protocol="6"'
+    janelas_simplewall_rule_line: '    <item name="janelas ALLOW OUT TCP 22 SSH [all]" rule="22" protocol="6" is_enabled="true" />'
+    janelas_simplewall_rule_when: "{{ janelas_firewall_rule_ssh | default(True) }}"
+  include_tasks: tasks-win-simplewall-rule.yml
 
-    - name: 'simplewall rule to allow/deny IN TCP Win RM'
-      vars:
-        janelas_simplewall_rule_regex: 'rule_local="5986" dir="1" protocol="6"'
-        janelas_simplewall_rule_line: '    <item name="janelas ALLOW IN TCP 5986 RM [all]" rule_local="5986" dir="1" protocol="6" is_enabled="true" />'
-        janelas_simplewall_rule_when: "{{ janelas_firewall_rule_winrm | default(True) }}"
-      include_tasks: tasks-win-simplewall-rule.yml
+- name: 'simplewall rule to allow/deny OUT UDP STUN/TURN'
+  vars:
+    janelas_simplewall_rule_regex: 'rule="3478" protocol="17"'
+    janelas_simplewall_rule_line: '    <item name="janelas ALLOW OUT UDP 3478 STUN/TURN [all]" rule="3478" protocol="17" is_enabled="true" />'
+    janelas_simplewall_rule_when: "{{ janelas_firewall_rule_stun | default(True) }}"
+  include_tasks: tasks-win-simplewall-rule.yml
 
-    - name: 'simplewall rule to allow/deny OUT TCP SSH'
-      vars:
-        janelas_simplewall_rule_regex: 'rule="22" protocol="6"'
-        janelas_simplewall_rule_line: '    <item name="janelas ALLOW OUT TCP 22 SSH [all]" rule="22" protocol="6" is_enabled="true" />'
-        janelas_simplewall_rule_when: "{{ janelas_firewall_rule_ssh | default(True) }}"
-      include_tasks: tasks-win-simplewall-rule.yml
+- name: 'simplewall rule to allow/deny OUT UDP WebRTC'
+  vars:
+    janelas_simplewall_rule_regex: 'rule="50000-65535" protocol="17"'
+    janelas_simplewall_rule_line: '    <item name="janelas ALLOW OUT UDP 50000-65535 WebRTC [all]" rule="50000-65535" protocol="17" is_enabled="true" />'
+    janelas_simplewall_rule_when: "{{ janelas_firewall_rule_webrtc | default(True) }}"
+  include_tasks: tasks-win-simplewall-rule.yml
 
-    - name: 'simplewall rule to allow/deny OUT UDP STUN/TURN'
-      vars:
-        janelas_simplewall_rule_regex: 'rule="3478" protocol="17"'
-        janelas_simplewall_rule_line: '    <item name="janelas ALLOW OUT UDP 3478 STUN/TURN [all]" rule="3478" protocol="17" is_enabled="true" />'
-        janelas_simplewall_rule_when: "{{ janelas_firewall_rule_stun | default(True) }}"
-      include_tasks: tasks-win-simplewall-rule.yml
-
-    - name: 'simplewall rule to allow/deny OUT UDP WebRTC'
-      vars:
-        janelas_simplewall_rule_regex: 'rule="50000-65535" protocol="17"'
-        janelas_simplewall_rule_line: '    <item name="janelas ALLOW OUT UDP 50000-65535 WebRTC [all]" rule="50000-65535" protocol="17" is_enabled="true" />'
-        janelas_simplewall_rule_when: "{{ janelas_firewall_rule_webrtc | default(True) }}"
-      include_tasks: tasks-win-simplewall-rule.yml
-
-    - include_tasks: tasks-win-simplewall-enable.yml
+- include_tasks: tasks-win-simplewall-enable.yml
