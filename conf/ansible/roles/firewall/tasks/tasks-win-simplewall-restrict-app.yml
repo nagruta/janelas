@@ -1,0 +1,11 @@
+---
+- win_lineinfile:
+    path: "{{ janelas_simplewall_path_rules }}"
+    regex: "{{ janelas_simplewall_restrict_app_regex }}"
+    state: absent
+# TODO: THIS PREVENT CHANGING THE FILE, BUT RESULTS IN DUPLICATES BELOW
+#  when: janelas_simplewall_rule_when is defined and janelas_simplewall_rule_when == False
+- win_lineinfile:
+    path: "{{ janelas_simplewall_path_rules }}"
+    insertbefore: "</apps>"
+    line: "{{ janelas_simplewall_restrict_app_line }}"
