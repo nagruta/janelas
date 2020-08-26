@@ -16,8 +16,7 @@ all:
         ansible_winrm_server_cert_validation: ignore
         ansible_winrm_transport: ntlm
         ansible_user: jansible
-        ansible_password_initial: FirstPasswordToBeAutoReplaced!!!
-        ansible_password_actual: ChangeThisActualPassword!!!
+        ansible_password: ChangeThisPassword!!!
       children:
         group_win_dws:
           hosts:
