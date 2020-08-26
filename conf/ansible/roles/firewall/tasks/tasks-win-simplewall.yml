@@ -28,6 +28,12 @@
     - name: 'copy {{ program }} rules'
       win_copy: src='files/profile-no-rules.xml' dest='{{ janelas_simplewall_path_rules }}' force=no
 
+    - name: 'simplewall app restriction allowing chocolatey'
+      vars:
+        janelas_simplewall_restrict_app_regex: 'path="C:\\programdata\\chocolatey\\choco.exe"'
+        janelas_simplewall_restrict_app_line: '    <item path="C:\programdata\chocolatey\choco.exe" timestamp="1598453231" is_enabled="true" />'
+      include_tasks: tasks-win-simplewall-restrict-app.yml
+
     - name: 'simplewall rule to allow/deny IN TCP RDP'
       vars:
         janelas_simplewall_rule_regex: 'rule_local="33" dir="1" protocol="6"'
