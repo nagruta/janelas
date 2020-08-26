@@ -1,0 +1,8 @@
+---
+- meta: clear_host_errors
+
+- set_fact:
+     ansible_password: ChangeThisPassword!!!
+
+- name: reestablishing ansible_user with actual password instead of interim password
+  include_tasks: tasks-win-ansible-user-establish.yml

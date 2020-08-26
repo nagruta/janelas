@@ -1,0 +1,14 @@
+---
+- set_fact:
+     ansible_password_actual: "{{ ansible_password }}"
+
+- block:
+    - name: establishing ansible_user
+      include_tasks: tasks-win-ansible-user-establish.yml
+  ignore_unreachable: true
+
+- include_tasks: tasks-win-ansible-user-reestablish.yml
+  when: janelas_ansible_user_established.unreachable is defined
+
+- set_fact:
+    ansible_password: "{{ ansible_password_actual }}"

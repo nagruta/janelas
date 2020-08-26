@@ -1,0 +1,10 @@
+---
+- win_user:
+    name: "{{ ansible_user }}"
+    groups: Administrators
+    #password: "{{ janelas_user_password | password_hash('sha512') }}"
+    password: "{{ ansible_password_actual }}"
+    password_expired: no
+    password_never_expires: yes
+    update_password: always
+  register: janelas_ansible_user_established
