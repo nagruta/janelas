@@ -1,0 +1,8 @@
+---
+- name: 'find {{ program }} process'
+  win_shell: Get-Process | Where-Object -FilterScript {$_.ProcessName -Like "{{ program }}"}
+  register: foundprocess
+
+- name: 'kill {{ program }} (necessary for a following ENABLE)'
+  win_shell: 'Stop-Process -Force -Name {{ program }}'
+  when: foundprocess.stdout is search("simplewall")

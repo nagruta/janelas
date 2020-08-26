@@ -12,13 +12,7 @@
         name: '{{ program }}.portable'
         version: '{{ version }}'
 
-    - name: 'find {{ program }} process'
-      win_shell: Get-Process | Where-Object -FilterScript {$_.ProcessName -Like "{{ program }}"}
-      register: foundprocess
-
-    - name: 'kill {{ program }} (necessary for the following ENABLE)'
-      win_shell: 'Stop-Process -Force -Name {{ program }}'
-      when: foundprocess.stdout is search("simplewall")
+    - include_tasks: tasks-win-simplewall-kill.yml
 
     - name: 'copy {{ program }} configuration'
       vars:
@@ -76,6 +70,4 @@
         janelas_simplewall_rule_when: "{{ janelas_firewall_rule_webrtc | default(True) }}"
       include_tasks: tasks-win-simplewall-rule.yml
 
-    - name: 'ENABLE {{ program }} rules (no-op if {{ program }} already running)'
-      win_command: '{{ directory }}{{ program }}.exe /install /silent'
-...
+    - include_tasks: tasks-win-simplewall-enable.yml

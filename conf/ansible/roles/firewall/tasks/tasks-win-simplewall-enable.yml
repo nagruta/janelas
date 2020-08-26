@@ -1,0 +1,3 @@
+---
+- name: 'ENABLE {{ program }} rules (no-op if {{ program }} already running)'
+  win_command: '{{ directory }}{{ program }}.exe /install /silent'
