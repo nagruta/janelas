@@ -1,0 +1,19 @@
+---
+- name: "check existence of {{ target }}"
+  win_stat: path={{ target }} get_checksum=false
+  register: win_stat_target
+
+- name: "optional force replacement of {{ destzipfile }}"
+  win_file: path={{ destzipfile }} state=absent
+  when: win_stat_target.stat.exists == true and replacezipfile is defined and replacezipfile == true
+
+- name: "zip into {{ destzipfile }}"
+  win_shell: Compress-Archive -LiteralPath {{ target }} -DestinationPath {{ destzipfile }}
+  when: win_stat_target.stat.exists == true
+
+- name: "SCP from {{ destparent }} to {{ srczipfile }}"
+  vars:
+    scpdest: "{{ scppath }}"
+    scpsrc: "{{ destzipfile }}"
+  include_tasks: atasks-win-scp-remote.yml
+  when: win_stat_target.stat.exists == true
