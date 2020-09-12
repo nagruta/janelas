@@ -1,0 +1,3 @@
+---
+- include_tasks: tasks-win-discord.yml
+- include_tasks: tasks-win-slack.yml

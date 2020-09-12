@@ -1,0 +1,5 @@
+---
+- name: Slack
+  # https://chocolatey.org/packages/slack
+  win_chocolatey:
+    name: slack

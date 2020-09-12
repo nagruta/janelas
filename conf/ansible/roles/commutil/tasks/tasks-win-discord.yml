@@ -1,0 +1,5 @@
+---
+- name: Discord
+  # https://chocolatey.org/packages/discord
+  win_chocolatey:
+    name: discord

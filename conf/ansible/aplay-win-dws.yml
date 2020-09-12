@@ -12,5 +12,6 @@
   roles:
     - winbase
     - fileman
+    - commutil
     - januser
 ...
