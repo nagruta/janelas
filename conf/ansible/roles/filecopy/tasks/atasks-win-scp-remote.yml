@@ -9,5 +9,5 @@
   win_copy: src="{{ scpkeyspec }}.pub" dest="{{ scpkeyspec }}.pub"
 
 - name: "scp remote {{ scpsrc }} to {{ scpdest }}"
-  win_shell: "scp -i {{ scpkeyspec }} -o StrictHostKeyChecking=no {{ scpsrc }} '\"{{ scpdest }}\"'"
+  win_shell: "scp -B -i {{ scpkeyspec }} -o StrictHostKeyChecking=no {{ scpsrc }} '\"{{ scpdest }}\"'"
 ...
