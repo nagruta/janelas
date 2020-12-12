@@ -51,11 +51,23 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  ## customized [c4augustus]
   config.vm.synced_folder "/opt", "/mnt/opt"
   config.vm.synced_folder "..", "/mnt/top"
   config.vm.synced_folder "../../..", "/mnt/super"
-  config.vm.synced_folder "/Users", "/mnt/home"
     ## optional super level directory above us (great-grandparent)
+  config.vm.synced_folder "/Users", "/mnt/home"
+  Dir.glob("/Users/*").each do |filename| ## add all Windows users to /home
+    if (File.directory?(filename))
+      if (Dir.glob("#{filename}/*").size > 0) # verify accessible
+        dirname = filename.partition("/Users/")[2]
+        if (dirname[0] != "." && !["All Users", "Default", "Default User", "Public"].include?(dirname))
+          puts "## syncing /Users/#{dirname} to /home/#{dirname}"
+          config.vm.synced_folder "/Users/#{dirname}", "/home/#{dirname}"
+        end
+      end
+    end
+  end
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
