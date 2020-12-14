@@ -1,0 +1,46 @@
+#!/bin/bash
+PATH_CONF_ANSIBLE=conf/ansible
+FILE_ANSIBLE_CFG=ansible.cfg
+FILE_SOURCE_ANSIBLE_CFG=$PATH_CONF_ANSIBLE/$FILE_ANSIBLE_CFG
+PATH_TARGET_ANSIBLE_CFG=/tmp/ansible
+FILE_TARGET_ANSIBLE_CFG=$PATH_TARGET_ANSIBLE_CFG/$FILE_ANSIBLE_CFG
+if [ -f $FILE_SOURCE_ANSIBLE_CFG ]
+then # must copy to non-world-writable directory
+  export ANSIBLE_CONFIG=$FILE_TARGET_ANSIBLE_CFG
+  mkdir -p $PATH_TARGET_ANSIBLE_CFG
+  cp $FILE_SOURCE_ANSIBLE_CFG $PATH_TARGET_ANSIBLE_CFG
+fi
+cd $PATH_CONF_ANSIBLE
+PATH_SUPER_CONF_ANSIBLE=../../../../$PATH_CONF_ANSIBLE
+if [ ! -d $PATH_SUPER_CONF_ANSIBLE ]
+then
+  # try special setup of Vagrant on Windows
+  PATH_SUPER_CONF_ANSIBLE=/mnt/super/$PATH_CONF_ANSIBLE
+fi
+FILE_INVENTORY=ansible-inventory.yml
+FILE_SUPER_INVENTORY=$PATH_SUPER_CONF_ANSIBLE/$FILE_INVENTORY
+if [ -f $FILE_SUPER_INVENTORY ]
+then
+  FILE_INVENTORY=$FILE_SUPER_INVENTORY
+  echo "using super inventory --> "$FILE_INVENTORY
+fi
+DIR_SSH=.ssh
+PATH_SUPER_CONF_ANSIBLE_SSH=$PATH_SUPER_CONF_ANSIBLE/$DIR_SSH
+if [ -d $PATH_SUPER_CONF_ANSIBLE_SSH ]
+then
+  if [ `stat -f "%OLp" $PATH_SUPER_CONF_ANSIBLE_SSH` == 700 ]
+  then
+    export ENTRADA_PATH_SSH=$PATH_SUPER_CONF_ANSIBLE_SSH
+  else
+    # copy super .ssh keys to /tmp so that we can chmod them (for Vagrant on windows)
+    export ENTRADA_PATH_TMP=/tmp/entrada
+    export ENTRADA_PATH_SSH=$ENTRADA_PATH_TMP/$DIR_SSH
+    mkdir -p $ENTRADA_PATH_TMP
+    cp -r $PATH_SUPER_CONF_ANSIBLE_SSH $ENTRADA_PATH_TMP
+    chmod 700 $ENTRADA_PATH_SSH
+    chmod 600 $ENTRADA_PATH_SSH/*.pem
+    chmod 600 $ENTRADA_PATH_SSH/id_*
+    chmod 644 $ENTRADA_PATH_SSH/id_*.pub
+  fi
+  ARG_EXTRA_VARS="-e entrada_path_ssh=$ENTRADA_PATH_SSH"
+fi
