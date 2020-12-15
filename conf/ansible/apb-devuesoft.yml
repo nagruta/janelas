@@ -12,5 +12,6 @@
   roles:
     - winbase
     - fileman
+    - python
     - januser
 ...
