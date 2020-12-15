@@ -1,5 +1,5 @@
 ---
-- hosts: group_win_dws
+- hosts: group_win_devuesoft
   connection: winrm
   gather_facts: no
   vars:

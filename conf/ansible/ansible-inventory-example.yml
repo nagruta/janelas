@@ -18,13 +18,13 @@ all:
         ansible_user: jansible
         ansible_password: ChangeThisPassword!!!
       children:
-        group_win_dws:
-          hosts:
-            host_local_vagrant:
-        group_win_ueds:
+        group_win_devuehard:
           hosts:
             host_example_01:
             host_example_02:
+        group_win_devuesoft:
+          hosts:
+            host_local_vagrant:
         group_win_user_naluar:
           hosts:
             host_example_01:

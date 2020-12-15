@@ -1,5 +1,5 @@
 ---
-- hosts: group_win_ueds
+- hosts: group_win_devuehard
   connection: winrm
   gather_facts: no
   roles:
