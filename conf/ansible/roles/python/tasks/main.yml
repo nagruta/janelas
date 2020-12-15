@@ -1,0 +1,17 @@
+---
+## NOTE: chocolatey will install python 2 as "python", the default
+#- name: python 2.x
+#  win_chocolatey:
+#    name: python2
+#    version: 2.7.18
+#    state: absent
+
+## NOTE: this only works the very first time,
+## subsequent uninstalls by "absent" or re-installs by deleting files manually,
+## will corrupt Windows/Chocolatey state such that no further installs will work
+- name: python 3.x
+  win_chocolatey:
+    name: python3
+    version: 3.9.2
+    package_params: "/InstallDir:C:\\opt\\python3"
+    state: present
