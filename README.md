@@ -21,7 +21,7 @@ Ansible configuration files (playbooks, etc.).
 ### [./dist/](dist)
 Intermediate directory created for downloaded installation distributions.
 
-### [./vme/](vme)
+### [./vme/console](vme/console)
 VM environment with Vagrantfile and generated .vagrant directory. This path is mounted to /vagrant inside the VM.
 
 ## Target host Windows machines must be prepared for Ansible
