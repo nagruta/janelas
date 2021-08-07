@@ -53,8 +53,8 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   ## customized [c4augustus]
   config.vm.synced_folder "/opt", "/mnt/opt"
-  config.vm.synced_folder "..", "/mnt/top"
-  config.vm.synced_folder "../../..", "/mnt/super"
+  config.vm.synced_folder "../..", "/mnt/top"
+  config.vm.synced_folder "../../../..", "/mnt/super"
     ## optional super level directory above us (great-grandparent)
   config.vm.synced_folder "/Users", "/mnt/home"
   changeuser = nil
