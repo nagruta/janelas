@@ -28,7 +28,13 @@ DIR_SSH=.ssh
 PATH_SUPER_CONF_ANSIBLE_SSH=$PATH_SUPER_CONF_ANSIBLE/$DIR_SSH
 if [ -d $PATH_SUPER_CONF_ANSIBLE_SSH ]
 then
-  if [ `stat -f "%OLp" $PATH_SUPER_CONF_ANSIBLE_SSH` == 700 ]
+  if [ "$OSTYPE" == "linux-gnu" ]
+  then
+    STAT_ARG="-c=%a"
+  else # assume BSD
+    STAT_ARG="-f \"%OLp\""
+  fi
+  if [ `stat $STAT_ARG $PATH_SUPER_CONF_ANSIBLE_SSH` == 700 ]
   then
     export ENTRADA_PATH_SSH=$PATH_SUPER_CONF_ANSIBLE_SSH
   else
