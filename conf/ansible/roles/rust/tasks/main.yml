@@ -1,0 +1,14 @@
+---
+#- name: DEBUG
+#  debug:
+#    var: janelas_user_name
+
+# NOTE: once installed for a particular user, if you then change
+# the user, win_chocolatey will not install it again for the new user
+# probably because win_chocolately sees rustup as already installed
+- name: rustup
+  win_chocolatey:
+    name: rustup.install
+  become: yes
+  become_method: runas
+  become_user: "{{ janelas_user_name }}"
