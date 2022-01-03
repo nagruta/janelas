@@ -8,7 +8,7 @@ $targetfile = $args[1]
 $urlbase = $args[2]
 $targetspec = "$targetpath/$targetfile"
 $sourceurl = "$urlbase$targetfile"
-iex "$scriptdir/sub-establish-path $args[0]"
+iex "$scriptdir/sub-establish-path $targetpath"
 if (-not (Test-Path "${targetspec}")) {
   "downloading $targetspec from $sourceurl"
   Invoke-WebRequest -Uri $sourceurl -OutFile $targetspec -UseBasicParsing
