@@ -1,0 +1,16 @@
+#!/bin/bash
+PATH_TO_THIS=`dirname $0`
+if [ $# -lt 1 ]
+then
+    echo ""
+    echo usage: "$0 <playbook name between apb-???.yml> [args]"
+    echo ".....available playbook names:"
+    source $PATH_TO_THIS/env-ansible
+    for FILE in `ls apb-*.yml`
+    do
+      [[ $FILE =~ apb-(.*).yml$ ]]
+      echo ${BASH_REMATCH[1]}
+    done
+    exit 1
+fi
+source $PATH_TO_THIS/play $* --check --diff
