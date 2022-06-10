@@ -4,7 +4,7 @@ source $PATH_TO_THIS/env-ansible
 if [ $# -lt 1 ]
 then
     echo ""
-    echo usage: "$0 <playbook name between apb-???.yml>"
+    echo usage: "$0 <playbook name between apb-???.yml> [args]"
     echo ".....available playbook names:"
     for FILE in `ls apb-*.yml`
     do
