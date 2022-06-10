@@ -1,0 +1,10 @@
+---
+- hosts: group_win_devrust
+  connection: winrm
+  gather_facts: no
+  roles:
+    - winbase
+    - fileman
+    - januser
+    - rust
+...
