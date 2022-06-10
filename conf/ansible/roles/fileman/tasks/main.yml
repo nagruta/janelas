@@ -1,5 +1,5 @@
 ---
-- include_tasks: tasks-win-package-archiver.yml
+#- include_tasks: tasks-win-package-archiver.yml
 #- include_tasks: tasks-win-package-doublecmd.yml
-#- include_tasks: tasks-win-package-explorerplusplus.yml
+- include_tasks: tasks-win-package-explorerplusplus.yml
 #- include_tasks: tasks-win-package-freecommander-xe.yml
