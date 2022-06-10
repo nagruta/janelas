@@ -5,4 +5,4 @@
 
 - name: 'kill {{ program }} (necessary for a following ENABLE)'
   win_shell: 'Stop-Process -Force -Name {{ program }}'
-  when: foundprocess.stdout is search("simplewall")
+  when: foundprocess.stdout is defined and foundprocess.stdout is search("simplewall")
