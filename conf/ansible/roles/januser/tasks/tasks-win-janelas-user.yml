@@ -6,6 +6,12 @@
 - set_fact:
     janelas_user_groups: "{{ janelas_user_groups + [item] }}"
   with_items:
+    - Administrators
+  when: janelas_user_adminable is defined and janelas_user_adminable == True
+
+- set_fact:
+    janelas_user_groups: "{{ janelas_user_groups + [item] }}"
+  with_items:
     - Remote Desktop Users
   when: janelas_user_remotable is defined and janelas_user_remotable == True
 
