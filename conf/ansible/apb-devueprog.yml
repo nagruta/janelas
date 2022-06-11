@@ -1,0 +1,11 @@
+---
+- hosts: group_win_devueprog
+  connection: winrm
+  gather_facts: no
+  roles:
+    - winbase
+    - fileman
+    - januser
+    - rust
+    - ueprog
+...

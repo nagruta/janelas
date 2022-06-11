@@ -1,5 +1,2 @@
 ---
-- include_tasks: tasks-win-feature-netfx3.yml
-- include_tasks: tasks-win-vcredist-for-ue.yml
-- include_tasks: tasks-win-vs-for-ue.yml
 - include_tasks: tasks-win-ue-scp.yml

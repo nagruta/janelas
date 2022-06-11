@@ -9,3 +9,4 @@
   block:
     - win_shell: Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3"
   when: checkwinfeaturedotnet35.stdout is search("Disabled")
+  ignore_errors: yes
