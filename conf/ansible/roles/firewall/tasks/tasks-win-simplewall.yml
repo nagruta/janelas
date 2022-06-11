@@ -1,15 +1,22 @@
 ---
-- name: '{{ program }} {{ version }} [chocolatey]'
-  win_chocolatey:
-    name: '{{ program }}.portable'
-    version: '{{ version }}'
+#- name: DEBUG
+#  debug: var=hostvars[inventory_hostname]
+
+#- name: '{{ program }} {{ version }} [chocolatey]'
+#  win_chocolatey:
+#    name: '{{ program }}.portable'
+#    version: '{{ version }}'
+
+- name: 'install {{ program }} from local portable distribution'
+  win_copy: src='{{ dist_portable_path }}/{{ program }}' dest='{{ program_root }}' force=no
+  ignore_errors: yes # throws error even though it successfully copies all files
 
 - include_tasks: tasks-win-simplewall-kill.yml
 
 - name: 'copy {{ program }} configuration'
   vars:
     file: '{{ program }}.ini'
-  win_copy: src='files/{{ file }}' dest='{{ directory }}{{ file }}' force=no
+  win_copy: src='files/{{ file }}' dest='{{ program_dir }}{{ file }}' force=no
 
 - name: 'copy {{ program }} rules'
   win_copy: src='files/profile-no-rules.xml' dest='{{ janelas_simplewall_path_rules }}' force=no

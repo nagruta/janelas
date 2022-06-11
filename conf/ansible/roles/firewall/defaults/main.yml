@@ -1,6 +1,8 @@
 ---
-directory: C:\ProgramData\chocolatey\lib\simplewall.portable\tools\simplewall\64\
-file_rules: profile.xml
-janelas_simplewall_path_rules: '{{ directory }}{{ file_rules }}'
 program: simplewall
 version: 3.1.2
+program_root: C:/opt/
+program_dir: '{{ program_root }}{{ program }}/64/'
+dist_portable_path: '{{ playbook_dir }}/../../dist/portable'
+file_rules: profile.xml
+janelas_simplewall_path_rules: '{{ program_dir }}{{ file_rules }}'
