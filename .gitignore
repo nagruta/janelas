@@ -2,3 +2,4 @@ dist/
 .DS_Store
 .vagrant
 *.swp
+conf/ansible/ansible-vault-password
