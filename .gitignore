@@ -1,3 +1,4 @@
 dist/
 .vagrant
 *.swp
+conf/ansible/ansible-vault-password
