@@ -1,0 +1,11 @@
+---
+- hosts: group_win_devprog
+  connection: winrm
+  gather_facts: no
+  roles:
+#    - winbase
+#    - fileman
+#    - januser
+    - haskell
+#    - rust
+...

@@ -1,0 +1,7 @@
+---
+- name: ghcup via haskell.org
+  # TODO: ### THIS INVOKES THE INTERACTIVE MODE AND NEEDS TO PASS ARGUMENTS TO MAKE IT SILENT
+  win_shell: try { Invoke-Command -ScriptBlock ([ScriptBlock]::Create((Invoke-WebRequest https://www.haskell.org/ghcup/sh/bootstrap-haskell.ps1 -UseBasicParsing))) -ArgumentList $true } catch { Write-Error $_ }
+  become: yes
+  become_method: runas
+  become_user: "{{ janelas_user_name }}"
